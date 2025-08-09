@@ -34,11 +34,11 @@
           >
             <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ post.title }}</h3>
             <p class="text-gray-600 mb-3">{{ post.body }}</p>
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
               <span class="text-sm text-gray-400">Post ID: {{ post.id }}</span>
               <button 
                 @click="showUser(post.userId, post.id)"
-                class="text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer inline-flex items-center gap-2"
+                class="mt-2 sm:mt-0 text-blue-600 hover:text-blue-700 font-medium text-sm cursor-pointer inline-flex items-center gap-2"
               >
                 <i class="fas fa-user"></i>
                 View Author (User ID: {{ post.userId }}, Post ID: {{ post.id }})

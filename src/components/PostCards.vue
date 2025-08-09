@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-2 text-center">Technical Assessment</h1>
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-2 text-center">Users Project </h1>
     <p class="text-slate-500 text-center mb-10">Browse posts by user and view author details</p>
     
     <!-- Cards Grid -->
