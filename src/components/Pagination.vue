@@ -12,7 +12,7 @@
     </button>
 
     <!-- Page Numbers -->
-    <div class="flex items-center gap-2 sm:gap-4">
+    <div class="flex items-center gap-[5px] sm:gap-4">
       <button
         v-for="page in pages"
         :key="page"
