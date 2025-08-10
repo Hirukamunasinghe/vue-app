@@ -1,10 +1,10 @@
 <template>
   <div 
     v-if="show" 
-    class="fixed inset-0 flex items-center justify-center z-50 p-4"
+    class="fixed inset-0 flex items-center justify-center z-50 p-2 sm:p-4"
   >
     <div 
-      class="bg-white rounded-2xl max-w-3xl w-full shadow-2xl ring-1 ring-gray-200/60"
+      class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] sm:max-h-[80vh] shadow-2xl ring-1 ring-gray-200/60 overflow-y-auto"
       @click.stop
     >
       <div class="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/95 border-b border-gray-200 rounded-t-2xl">
@@ -12,20 +12,20 @@
         <button 
           v-if="postId"
           @click="goBack"
-          class="absolute top-4 left-4 text-gray-500 hover:text-gray-700 text-xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
+          class="absolute top-2 sm:top-4 left-2 sm:left-4 text-gray-500 hover:text-gray-700 text-xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
           aria-label="Go back to posts"
         >
           <i class="fas fa-arrow-left"></i>
         </button>
         
         <!-- Avatar and Header Section -->
-        <div class="px-6 py-6 text-center">
-          <div v-if="!loading && user" class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-blue-100">
+        <div class="px-4 py-4 sm:px-6 sm:py-6 text-center">
+          <div v-if="!loading && user" class="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden border-4 border-blue-100">
             <img :src="getUserAvatar(user.id)" alt="User Avatar" class="w-full h-full object-cover">
           </div>
-          <div v-else-if="loading" class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 animate-pulse"></div>
+          <div v-else-if="loading" class="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 rounded-full bg-gray-200 animate-pulse"></div>
           
-          <h2 class="text-2xl font-bold text-gray-900">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900">
             {{ loading ? 'Loading...' : (user?.name || 'User Information') }}
           </h2>
         </div>
@@ -33,24 +33,24 @@
         <!-- Close Button -->
         <button 
           @click="close"
-          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
+          class="absolute top-2 sm:top-4 right-2 sm:right-4 text-gray-500 hover:text-gray-700 text-2xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
           aria-label="Close user popup"
         >
           <i class="fas fa-times"></i>
         </button>
       </div>
       
-      <div class="px-6 py-6">
-        <div v-if="loading" class="text-center py-8">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p class="mt-4 text-gray-600">Loading user...</p>
+      <div class="px-4 py-4 sm:px-6 sm:py-6">
+        <div v-if="loading" class="text-center py-6 sm:py-8">
+          <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p class="mt-3 sm:mt-4 text-gray-600">Loading user...</p>
         </div>
         
-        <div v-else-if="user" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div v-else-if="user" class="space-y-4 sm:space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <h3 class="font-semibold text-gray-900">Personal Information</h3>
-              <div class="mt-2 space-y-1 text-gray-700">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">Personal Information</h3>
+              <div class="mt-2 space-y-1 text-gray-700 text-sm sm:text-base">
                 <p><span class="font-medium">Name:</span> {{ user.name }}</p>
                 <p><span class="font-medium">Username:</span> {{ user.username }}</p>
                 <p><span class="font-medium">Email:</span> {{ user.email }}</p>
@@ -60,8 +60,8 @@
             </div>
             
             <div>
-              <h3 class="font-semibold text-gray-900">Address</h3>
-              <div class="mt-2 space-y-1 text-gray-700">
+              <h3 class="font-semibold text-gray-900 text-sm sm:text-base">Address</h3>
+              <div class="mt-2 space-y-1 text-gray-700 text-sm sm:text-base">
                 <p>{{ user.address.street }}, {{ user.address.suite }}</p>
                 <p>{{ user.address.city }}, {{ user.address.zipcode }}</p>
                 <p>Lat: {{ user.address.geo.lat }}, Lng: {{ user.address.geo.lng }}</p>
@@ -70,8 +70,8 @@
           </div>
           
           <div>
-            <h3 class="font-semibold text-gray-900">Company</h3>
-            <div class="mt-2 space-y-1 text-gray-700">
+            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">Company</h3>
+            <div class="mt-2 space-y-1 text-gray-700 text-sm sm:text-base">
               <p><span class="font-medium">Name:</span> {{ user.company.name }}</p>
               <p><span class="font-medium">Catch Phrase:</span> {{ user.company.catchPhrase }}</p>
               <p><span class="font-medium">Business:</span> {{ user.company.bs }}</p>
@@ -79,7 +79,7 @@
           </div>
         </div>
         
-        <div v-else class="text-center py-8 text-gray-600">
+        <div v-else class="text-center py-6 sm:py-8 text-gray-600">
           User not found
         </div>
       </div>
