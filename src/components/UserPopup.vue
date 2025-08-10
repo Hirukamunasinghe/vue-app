@@ -8,17 +8,36 @@
       @click.stop
     >
       <div class="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/95 border-b border-gray-200 rounded-t-2xl">
-        <div class="px-6 py-4 flex justify-between items-center">
-          <h2 class="text-2xl font-bold text-gray-900">User Information (ID: {{ userId }})</h2>
-          <button 
-            @click="close"
-            class="text-gray-500 hover:text-gray-700 text-2xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
-            aria-label="Close user popup"
-          >
-            <i class="fas fa-times"></i>
-          </button>
+        <!-- Back Button (Top Left) - Only show when viewing from a post -->
+        <button 
+          v-if="postId"
+          @click="goBack"
+          class="absolute top-4 left-4 text-gray-500 hover:text-gray-700 text-xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
+          aria-label="Go back to posts"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <!-- Avatar and Header Section -->
+        <div class="px-6 py-6 text-center">
+          <div v-if="!loading && user" class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-blue-100">
+            <img :src="getUserAvatar(user.id)" alt="User Avatar" class="w-full h-full object-cover">
+          </div>
+          <div v-else-if="loading" class="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 animate-pulse"></div>
+          
+          <h2 class="text-2xl font-bold text-gray-900">
+            {{ loading ? 'Loading...' : (user?.name || 'User Information') }}
+          </h2>
         </div>
-        <p class="px-6 pb-4 text-sm text-gray-500">Author of Post ID: {{ postId }}</p>
+        
+        <!-- Close Button -->
+        <button 
+          @click="close"
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 cursor-pointer hover:bg-gray-100"
+          aria-label="Close user popup"
+        >
+          <i class="fas fa-times"></i>
+        </button>
       </div>
       
       <div class="px-6 py-6">
@@ -79,9 +98,31 @@ const props = defineProps({
   loading: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'goBack'])
 
 const close = () => emit('close')
+
+const goBack = () => emit('goBack')
+
+// Avatar images array
+const avatarImages = [
+  '/image 8.png',
+  '/image 17.png',
+  '/image 66.png',
+  '/image 87.png',
+  '/image 174.png',
+  '/image 178.png',
+  '/image 206.png',
+  '/image 373.png',
+  '/image 477.png',
+  '/image 490.png'
+]
+
+const getUserAvatar = (userId) => {
+  // Use modulo to ensure we always get a valid index
+  const index = (userId - 1) % avatarImages.length
+  return avatarImages[index]
+}
 </script>
 
 <style scoped>
