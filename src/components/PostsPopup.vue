@@ -61,6 +61,7 @@
             :current="currentPage"
             :totalPages="totalPages"
             @change="handlePageChange"
+            class="mt-6 sm:mt-8 border-t border-gray-100 pt-6 sm:pt-8"
           />
         </div>
       </div>
@@ -69,7 +70,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed, watch } from 'vue'
+import { defineProps, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import Pagination from './Pagination.vue'
 
 const props = defineProps({
@@ -82,18 +83,40 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'showUser'])
 
-const pageSize = 2
+// Responsive page size: 1 for mobile, 2 for larger screens
+const pageSize = ref(2)
+
+// Function to update page size based on screen width
+const updatePageSize = () => {
+  if (window.innerWidth < 640) { // sm breakpoint
+    pageSize.value = 1
+  } else {
+    pageSize.value = 2
+  }
+}
+
+// Initialize page size and add resize listener
+onMounted(() => {
+  updatePageSize()
+  window.addEventListener('resize', updatePageSize)
+})
+
+// Clean up event listener
+onUnmounted(() => {
+  window.removeEventListener('resize', updatePageSize)
+})
+
 const currentPage = ref(1)
 
-const totalPages = computed(() => Math.max(1, Math.ceil(props.posts.length / pageSize)))
+const totalPages = computed(() => Math.max(1, Math.ceil(props.posts.length / pageSize.value)))
 
 const paginatedPosts = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  return props.posts.slice(start, start + pageSize)
+  const start = (currentPage.value - 1) * pageSize.value
+  return props.posts.slice(start, start + pageSize.value)
 })
 
 watch(
-  () => [props.userId, props.show, props.posts.length],
+  () => [props.userId, props.show, props.posts.length, pageSize.value],
   () => { currentPage.value = 1 }
 )
 
