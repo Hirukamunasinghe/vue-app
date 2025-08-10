@@ -60,6 +60,7 @@
             v-if="totalPages > 1"
             :current="currentPage"
             :totalPages="totalPages"
+            :showPageNumbers="showPageNumbers"
             @change="handlePageChange"
             class="mt-6 sm:mt-8 border-t border-gray-100 pt-6 sm:pt-8"
           />
@@ -114,6 +115,9 @@ const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
   return props.posts.slice(start, start + pageSize.value)
 })
+
+// Computed property to determine if page numbers should be shown
+const showPageNumbers = computed(() => window.innerWidth >= 640)
 
 watch(
   () => [props.userId, props.show, props.posts.length, pageSize.value],

@@ -12,7 +12,7 @@
     </button>
 
     <!-- Page Numbers -->
-    <div class="flex items-center gap-[5px] sm:gap-4">
+    <div v-if="showPageNumbers" class="flex items-center gap-[5px] sm:gap-4">
       <button
         v-for="page in pages"
         :key="page"
@@ -46,12 +46,15 @@ import { defineProps, defineEmits, computed } from 'vue'
 
 const props = defineProps({
   current: { type: Number, required: true },
-  totalPages: { type: Number, required: true }
+  totalPages: { type: Number, required: true },
+  showPageNumbers: { type: Boolean, default: true }
 })
 
 const emit = defineEmits(['change'])
 
 const pages = computed(() => {
+  if (!props.showPageNumbers) return []
+  
   const total = props.totalPages
   const current = props.current
   const maxButtons = 5
