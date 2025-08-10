@@ -77,15 +77,15 @@
           <div class="p-6">
             <div class="space-y-3 mb-6">
               <div class="flex items-center text-sm text-gray-600">
-                <i class="fas fa-envelope w-4 mr-3 text-gray-400"></i>
+                <i class="fas fa-envelope w-4 mr-3 text-gray-500"></i>
                 <span class="truncate">{{ user.email }}</span>
               </div>
               <div class="flex items-center text-sm text-gray-600">
-                <i class="fas fa-map-marker-alt w-4 mr-3 text-gray-400"></i>
+                <i class="fas fa-map-marker-alt w-4 mr-3 text-gray-500"></i>
                 <span class="truncate">{{ user.address.city }}, {{ user.address.country }}</span>
               </div>
               <div class="flex items-center text-sm text-gray-600">
-                <i class="fas fa-building w-4 mr-3 text-gray-400"></i>
+                <i class="fas fa-building w-4 mr-3 text-gray-500"></i>
                 <span class="truncate">{{ user.company.catchPhrase }}</span>
               </div>
             </div>
