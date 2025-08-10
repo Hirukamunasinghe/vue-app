@@ -19,7 +19,7 @@
           <div class="mt-4 sm:mt-0 flex items-center space-x-4">
             <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
               <div class="text-sm text-gray-500">Total Users</div>
-              <div class="text-2xl font-bold text-blue-600">{{ filteredUsers.length }}</div>
+              <div class="text-2xl font-bold text-blue-600">{{ users.length }}</div>
             </div>
             <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
               <div class="text-sm text-gray-500">Total Posts</div>
